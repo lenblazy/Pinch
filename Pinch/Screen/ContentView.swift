@@ -28,6 +28,7 @@ struct ContentView: View {
         
         NavigationView{
             ZStack{
+                Color.clear
                 
                 //MARK: - PAGE IMAGE
                 Image("magazine-front-cover")
@@ -44,7 +45,7 @@ struct ContentView: View {
                     .onTapGesture(count: 2) {
                         if imageScale == 1 {
                             withAnimation(.spring()){
-                              imageScale = 5
+                                imageScale = 5
                             }
                         } else {
                             resetImageState()
@@ -63,7 +64,7 @@ struct ContentView: View {
                                     resetImageState()
                                 }
                             }
-                    
+                        
                     )
                 
             } //: ZSTACK
@@ -72,6 +73,13 @@ struct ContentView: View {
             .onAppear {
                 isAnimating = true
             }
+            
+            //MARK: - Info panel
+            .overlay(alignment: .top, content: {
+                InfoPanelView(scale: imageScale, offset: imageOffset)
+                    .padding(.horizontal)
+                    .padding(.top, 30)
+            })
             
             
         } //: NAVIGATION
