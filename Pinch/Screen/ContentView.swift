@@ -87,19 +87,36 @@ struct ContentView: View {
                     HStack {
                         // SCALE DOWN
                         Button {
-                            //some action
+                            withAnimation(.spring()){
+                                if imageScale > 1 {
+                                    imageScale -= 1
+                                    
+                                    if imageScale <= 1 {
+                                        resetImageState()
+                                    }
+                                    
+                                }
+                            }
                         } label: {
                             ControlImageView(icon: "minus.magnifyingglass")
                         }
                         // RESET
                         Button {
-                            //some action
+                            resetImageState()
                         } label: {
                             ControlImageView(icon: "arrow.up.left.and.down.right.magnifyingglass")
                         }
                         // SCALE UP
                         Button {
-                            //some action
+                            withAnimation(.spring()){
+                                if imageScale < 5 {
+                                    imageScale += 1
+                                    
+                                    if imageScale >= 5{
+                                        imageScale = 5
+                                    }
+                                }
+                            }
                         } label: {
                             ControlImageView(icon: "plus.magnifyingglass")
                         }
