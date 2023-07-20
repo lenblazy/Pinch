@@ -13,7 +13,10 @@ struct ContentView: View {
     @State private var isAnimating: Bool = false
     @State private var imageScale: CGFloat = 1
     @State private var imageOffset: CGSize = .zero
-    @State private var isDrawerOpen: Bool = false
+    @State private var isDrawerOpen: Bool = true
+    
+    let pages: [Page] = pagesData
+    @State private var pageIndex: Int = 1
     
     
     //MARK: - FUNCTION
@@ -22,6 +25,10 @@ struct ContentView: View {
             imageScale = 1
             imageOffset = .zero
         }
+    }
+    
+   private func currentPage() -> String{
+       return pages[pageIndex - 1].imageName
     }
     
     //MARK: - CONTENT
@@ -33,7 +40,7 @@ struct ContentView: View {
                 Color.clear
                 
                 //MARK: - PAGE IMAGE
-                Image("magazine-front-cover")
+                Image(currentPage())
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .cornerRadius(20)
@@ -170,6 +177,17 @@ struct ContentView: View {
                         }
                     
                     //MARK: - THUMBNAILS
+                    ForEach(pages) { page in
+                        Image(page.thumbnail)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 80)
+                            .cornerRadius(8)
+                            .shadow(radius: 4)
+                        
+                    }
+                    
+                    
                     Spacer()
                     
                 } //: DRAWER
